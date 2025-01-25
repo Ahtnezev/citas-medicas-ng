@@ -24,7 +24,8 @@ export class HeaderComponent {
         this.miniSidebar = false;
       }
     });
-    this.user = this.auth.user;
+    // this.user = this.auth.user;
+    this.user = localStorage.getItem('user') ?? '';
     console.log(this.user);
   }
 

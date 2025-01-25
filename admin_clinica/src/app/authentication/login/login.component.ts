@@ -32,9 +32,9 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (localStorage.getItem('authenticated')) {
-      localStorage.removeItem('authenticated');
-    }
+    // if (localStorage.getItem('authenticated')) {
+    //   localStorage.removeItem('authenticated');
+    // }
   }
 
   loginFormSubmit() {

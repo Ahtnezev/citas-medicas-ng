@@ -29,11 +29,14 @@ export class AuthGuard implements CanActivate {
       //   this.router.navigate([routes.login]);
       //   return false;
       // }
-      if (!this.auth.token || !this.auth.user){
+
+      //! console.log(this.auth.token, this.auth.user);
+
+      if (!localStorage.getItem('token') && !localStorage.getItem('user')){
         this.router.navigate([routes.login]);
         return false;
       }
-      let token = this.auth.token;
+      let token:any = localStorage.getItem('token');
       // en el primer . viene el payload... -- header y footer
       let expiration = ( JSON.parse( atob(token.split(".")[1]) ) ).exp; // tiempo de expiracion
       if (Math.floor( (new Date().getTime()) / 1000) >= expiration ) {
