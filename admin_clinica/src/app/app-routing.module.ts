@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 // import { AuthGuard } from './shared/gaurd/auth.guard';
+import { MedicalModule } from './medical/medical.module';
 
 const routes: Routes = [
   {
@@ -12,6 +13,11 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./core/core.module').then((m) => m.CoreModule),
+  },
+  //!
+  {
+    path: '',
+    loadChildren: () => import('./medical/medical.module').then((m) => m.MedicalModule),
   },
   {
     path: '',
