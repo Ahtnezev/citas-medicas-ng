@@ -300,7 +300,8 @@ export interface SubMenu {
   menuValue: string;
   route: string;
   base: string;
- 
+  permission?: string,
+  show_nav?: boolean,
 }
 export interface MenuItem {
   menuValue: string;
@@ -312,7 +313,7 @@ export interface MenuItem {
   icon?: string;
   faIcon?: boolean;
   subMenus: SubMenu[];
-  
+
 }
 
 export interface SideBarData {
@@ -320,6 +321,6 @@ export interface SideBarData {
   showAsTab: boolean;
   separateRoute: boolean;
   menu: MenuItem[];
-} 
-  
+}
+
 

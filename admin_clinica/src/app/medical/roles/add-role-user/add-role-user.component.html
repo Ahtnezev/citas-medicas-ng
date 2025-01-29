@@ -17,28 +17,31 @@
 
       <div class="col-lg-8">
         <div class="card-box">
+
+          <div class="form-group row" *ngIf="valid_form">
+            <div class="col-md-7">
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Error!</strong> Debe llenar el nombre y seleccionar al menos un permiso.
+              </div>
+            </div>
+          </div>
+
           <h4 class="card-title">Creación rol</h4>
           <form action="#">
-            <div class="form-group row">
-              <label class="col-form-label col-md-2">Nombre</label>
-              <div class="col-md-10">
-                <input type="text" class="form-control">
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
 
-      <div class="col-lg-8">
-        <div class="card-box">
-          <h4 class="card-title"></h4>
-          <form action="#">
             <div class="form-group row">
               <label class="col-form-label col-md-2">Nombre</label>
               <div class="col-md-10">
-                <input type="text" class="form-control">
+                <input type="text" [(ngModel)]="name" name="name" class="form-control">
               </div>
             </div>
+
+            <div class="form-group row">
+              <div class="col-md-12 text-end">
+                <button class="btn btn-primary" (click)="save()">Guardar</button>
+              </div>
+            </div>
+
           </form>
         </div>
       </div>
@@ -56,50 +59,35 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>Doctor</td>
-                    <td>
-                      <div class="">
-                        <div class="checkbox">
-                          <label>
-                            <input type="checkbox" name="checkbox"> Doctor list
-                          </label>
+
+                  <ng-container *ngFor="let side of sidebar">
+                    <tr>
+                      <td>{{ side.menuValue }}</td>
+                      <td>
+
+                        <div class="" *ngIf="side.subMenus && side.subMenus.length > 0">
+                          <ng-container *ngFor="let subMenu of side.subMenus">
+                            <div class="checkbox">
+                              <label>
+                                <input type="checkbox" name="checkbox" (click)="addPermission(subMenu)">
+                                {{ subMenu.menuValue }}
+                              </label>
+                            </div>
+                          </ng-container>
                         </div>
-                        <div class="checkbox">
-                          <label>
-                            <input type="checkbox" name="checkbox"> Doctor add
-                          </label>
+
+                        <div class="" *ngIf="side.subMenus && side.subMenus.length == 0">
+                          <div class="checkbox">
+                            <label>
+                              <input type="checkbox" name="checkbox" (click)="addPermission(side)"> {{ side.menuValue }}
+                            </label>
+                          </div>
                         </div>
-                        <div class="checkbox">
-                          <label>
-                            <input type="checkbox" name="checkbox"> Profile Doctor
-                          </label>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Pacientes</td>
-                    <td>
-                      <div class="">
-                        <div class="checkbox">
-                          <label>
-                            <input type="checkbox" name="checkbox"> Paciente add
-                          </label>
-                        </div>
-                        <div class="checkbox">
-                          <label>
-                            <input type="checkbox" name="checkbox"> Paciente list
-                          </label>
-                        </div>
-                        <div class="checkbox">
-                          <label>
-                            <input type="checkbox" name="checkbox"> Paciente perfil
-                          </label>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
+
+                      </td>
+                    </tr>
+                  </ng-container>
+
                 </tbody>
               </table>
             </div>

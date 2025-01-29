@@ -26,7 +26,7 @@ export class HeaderComponent {
     });
     // this.user = this.auth.user;
     this.user = localStorage.getItem('user') ?? '';
-    console.log(this.user);
+    // console.log(this.user);
   }
 
   logout() {
