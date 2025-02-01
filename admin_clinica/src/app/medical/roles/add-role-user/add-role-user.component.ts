@@ -13,6 +13,8 @@ export class AddRoleUserComponent {
   name:string = '';
   permissions:any = [];
   valid_form:boolean = false;
+  valid_form_success:boolean = false;
+  text_validation:any = null;
 
   constructor(
     public DataService: DataService,
@@ -48,10 +50,28 @@ export class AddRoleUserComponent {
       name: this.name,
       permissions: this.permissions
     };
+
     this.valid_form = false;
+    this.valid_form_success = false;
+    this.text_validation = null;
+
     this.RoleService.storeRoles(data).subscribe( (resp:any) => {
       console.log(resp);
-      this.clearForm();
+
+      if (resp.message == 403) {
+        this.text_validation = resp.text;
+      } else {
+        this.clearForm();
+        this.valid_form_success = true;
+
+        // reset checboxs
+        let SIDE_BAR = this.sidebar;
+        this.sidebar = [];
+        setTimeout(() => {
+          this.sidebar = SIDE_BAR;
+        }, 50);
+      }
+
     });
   }
 

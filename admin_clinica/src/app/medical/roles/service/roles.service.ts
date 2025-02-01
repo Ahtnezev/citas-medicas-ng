@@ -21,6 +21,14 @@ export class RolesService {
     return this.http.get(URL, {headers});
   }
 
+  //! este toma la fn del controller de RolesController@show
+  showRoles(role_id:number) {
+    let headers = new HttpHeaders({"Authorization": "Bearer " + this.authService.token })
+    let URL = URL_SERVICIOS+"/roles/"+role_id;
+
+    return this.http.get(URL, {headers});
+  }
+
   storeRoles(data:any) {
     let headers = new HttpHeaders({"Authorization": "Bearer " + this.authService.token })
     let URL = URL_SERVICIOS+"/roles";

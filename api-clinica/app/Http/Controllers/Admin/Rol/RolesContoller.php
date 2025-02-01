@@ -21,7 +21,7 @@ class RolesContoller extends Controller
         return response()->json([
            "roles" => $roles->map(function($rol) {
             return [
-                "id" => $rol,
+                "id" => $rol->id,
                 "name" => $rol->name,
                 "permission" => $rol->permissions,
                 "permission_pluck" => $rol->permissions->pluck('name'),
@@ -36,7 +36,7 @@ class RolesContoller extends Controller
      */
     public function store(Request $request)
     {
-        $is_role = Role::where("name", $request->name)->first();
+        $is_role = Role::where("name", trim($request->name))->first();
         if ($is_role) return response()->json(["message" => 403, "text" => "Nombre de rol ya existe"]);
 
         $role = Role::create([
@@ -59,7 +59,15 @@ class RolesContoller extends Controller
      */
     public function show(string $id)
     {
-        //
+        $rol = Role::findOrFail($id);
+
+        return response()->json([
+            "id" => $rol->id,
+            "name" => $rol->name,
+            "permission" => $rol->permissions,
+            "permission_pluck" => $rol->permissions->pluck('name'),
+            "created_at" => $rol->created_at->format("Y-m-d h:i:s"),
+        ]);
     }
 
     /**
@@ -85,6 +93,13 @@ class RolesContoller extends Controller
     public function destroy(string $id)
     {
         $role = Role::findOrFail($id);
+        //* check if the role has a user related
+        if ($role->users->count() > 0) {
+            return response()->json([
+                "message" => 403,
+                "text"    => "El rol seleccionado no se puede eliminar ya que cuenta con usuarios asignados"
+            ]);
+        }
         $role->delete();
         return response()->json([
             "message" => 200
