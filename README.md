@@ -6,7 +6,7 @@
 ![Laravel](https://img.shields.io/badge/Angular-v10.10-red?style=flat-square)
 ![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)
 
-## 📋 Descripción
+## 📋 Description
    
 This project is an application developed with [Angular](https://angular.io/). It provides a solid foundation for building modern and scalable web applications.
 
