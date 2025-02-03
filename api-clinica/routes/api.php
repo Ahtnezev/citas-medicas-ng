@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\Rol\RolesContoller;
+use App\Http\Controllers\Admin\Staff\StaffController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -49,4 +50,7 @@ Route::group([
     'middleware' => 'auth:api'
 ], function ($router) {
     Route::resource("roles", RolesContoller::class);
+
+    Route::get("staffs/config", [StaffController::class, 'config']);
+    Route::resource("staffs", StaffController::class); // debe ser la misma ruta `staffs` que en `staff.service.ts`
 });
