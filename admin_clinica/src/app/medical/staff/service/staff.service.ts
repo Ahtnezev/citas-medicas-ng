@@ -18,14 +18,38 @@ export class StaffService {
 
   listUsers() {
     let headers = new HttpHeaders({ "Authorization": "Bearer "+this.authService.token });
-    let URL = URL_SERVICIOS+"/staff";
+    let URL = URL_SERVICIOS+"/staffs";
     return this.http.get(URL, {headers: headers});
   }
 
   listConfig() {
     let headers = new HttpHeaders({ "Authorization": "Bearer "+this.authService.token });
-    let URL = URL_SERVICIOS+"/staff/config";
+    let URL = URL_SERVICIOS+"/staffs/config";
     return this.http.get(URL, {headers: headers});
+  }
+
+  registerUser(data:any) {
+    let headers = new HttpHeaders({ "Authorization": "Bearer "+this.authService.token });
+    let URL = URL_SERVICIOS+"/staffs";
+    return this.http.post(URL, data, {headers: headers});
+  }
+
+  showUser(staff_id:string) {
+    let headers = new HttpHeaders({ "Authorization": "Bearer "+this.authService.token });
+    let URL = URL_SERVICIOS+"/staffs/" + staff_id;
+    return this.http.get(URL, {headers: headers});
+  }
+
+  updateUser(staff_id:string, data:any) {
+    let headers = new HttpHeaders({ "Authorization": "Bearer "+this.authService.token });
+    let URL = URL_SERVICIOS+"/staffs/" + staff_id;
+    return this.http.post(URL, data, {headers: headers});
+  }
+
+  deleteUser(staff_id:string) {
+    let headers = new HttpHeaders({ "Authorization": "Bearer "+this.authService.token });
+    let URL = URL_SERVICIOS+"/staffs/" + staff_id;
+    return this.http.delete(URL, {headers: headers});
   }
 
 

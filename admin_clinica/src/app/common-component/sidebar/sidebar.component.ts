@@ -37,7 +37,7 @@ export class SidebarComponent {
 
     // INICIO
     // this.user.`roles`... este viene desde AuthController del item de `roles` @respondWithToken
-    if (this.user.roles.includes("Super-Admin")) {
+    if (this.user && this.user.roles.includes("Super-Admin")) {
       // si en su role contiene Super-Admin mostramos todo el sidebar completo
       this.sidebarData = this.data.sideBar;
     } else {

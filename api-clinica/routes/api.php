@@ -52,5 +52,6 @@ Route::group([
     Route::resource("roles", RolesContoller::class);
 
     Route::get("staffs/config", [StaffController::class, 'config']);
+    Route::post("staffs/{id}", [StaffController::class, "update"]);
     Route::resource("staffs", StaffController::class); // debe ser la misma ruta `staffs` que en `staff.service.ts`
 });

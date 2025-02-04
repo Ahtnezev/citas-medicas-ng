@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\User\UserCollection;
 use App\Http\Resources\User\UserResource;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Models\Role;
@@ -64,13 +65,16 @@ class StaffController extends Controller
             $request->request->add(["password" => bcrypt($request->password)]);
         }
 
+        //? es por recibir la fecha de parte de js
+        $request->request->add(["birthdate" => Carbon::parse(trim($request->birthdate))->format("Y-m-d") ]);
+
         $user = User::create($request->all());
 
         $role = Role::findOrFail($request->role_id);
         $user->assignRole($role);
 
         return response()->json([
-            "message" => 200
+            "message" => 200,
         ]);
     }
 
@@ -113,6 +117,7 @@ class StaffController extends Controller
             $request->request->add(["password" => bcrypt($request->password)]);
         }
 
+        $request->request->add(["birthdate" => Carbon::parse(trim($request->birthdate))->format("Y-m-d") ]);
         $user->update($request->all());
 
         if ($request->role_id != $user->roles()->first()->id) {
