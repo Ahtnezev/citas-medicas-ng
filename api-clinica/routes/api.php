@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\Doctor\SpecialityController;
 use App\Http\Controllers\Admin\Rol\RolesContoller;
 use App\Http\Controllers\Admin\Staff\StaffController;
 use App\Http\Controllers\AuthController;
@@ -54,4 +55,6 @@ Route::group([
     Route::get("staffs/config", [StaffController::class, 'config']);
     Route::post("staffs/{id}", [StaffController::class, "update"]);
     Route::resource("staffs", StaffController::class); // debe ser la misma ruta `staffs` que en `staff.service.ts`
+
+    Route::resource("specialities", SpecialityController::class);
 });
