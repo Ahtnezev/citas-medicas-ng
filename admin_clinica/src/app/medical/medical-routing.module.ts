@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MedicalComponent } from './medical.component';
 import { AuthGuard } from '../shared/gaurd/auth.guard';
-import { SpecialitieModule } from './specialitie/specialitie.module';
 
 // ruta base: http:://localhost:4200
 // /roles/register
@@ -28,6 +27,11 @@ const routes: Routes = [
         path: 'specialities',
         loadChildren: () =>
           import('./specialitie/specialitie.module').then((m) => m.SpecialitieModule),
+      },
+      {
+        path: 'doctors',
+        loadChildren: () =>
+          import('./doctors/doctors.module').then((m) => m.DoctorsModule),
       },
     ]
   }

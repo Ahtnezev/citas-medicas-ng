@@ -352,17 +352,17 @@ export class DataService {
           img: 'assets/img/icons/menu-icon-02.svg',
           subMenus: [
             {
-              menuValue: 'Doctor List',
-              route: routes.doctorsList,
-              base: routes.doctorsList,
-              permission: 'list_doctor',
-              show_nav: true,
-            },
-            {
               menuValue: 'Add Doctor',
               route: routes.addDoctor,
               base: routes.addDoctor,
               permission: 'register_doctor',
+              show_nav: true,
+            },
+            {
+              menuValue: 'Doctor List',
+              route: routes.doctorsList,
+              base: routes.doctorsList,
+              permission: 'list_doctor',
               show_nav: true,
             },
             {

@@ -141,7 +141,7 @@ export class routes {
     return this.baseUrl + '/specialities/edit-department';
   }
   public static get addDoctor(): string {
-    return this.baseUrl + '/doctor/add-doctor';
+    return this.baseUrl + '/doctors/register';
   }
   public static get doctorProfile(): string {
     return this.baseUrl + '/doctor/doctor-profile';
@@ -150,7 +150,7 @@ export class routes {
     return this.baseUrl + '/doctor/doctor-setting';
   }
   public static get doctorsList(): string {
-    return this.baseUrl + '/doctor/doctors-list';
+    return this.baseUrl + '/doctors/list';
   }
   public static get editDoctor(): string {
     return this.baseUrl + '/doctor/edit-doctor';

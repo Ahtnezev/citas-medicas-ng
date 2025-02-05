@@ -1,23 +1,33 @@
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 import { DoctorsRoutingModule } from './doctors-routing.module';
 import { DoctorsComponent } from './doctors.component';
-import { AddDocComponent } from './add-doc/add-doc.component';
-import { EditDocComponent } from './edit-doc/edit-doc.component';
-import { ListDocComponent } from './list-doc/list-doc.component';
+import { AddDoctorComponent } from './add-doctor/add-doctor.component';
+import { EditDoctorComponent } from './edit-doctor/edit-doctor.component';
+import { ListDoctorComponent } from './list-doctor/list-doctor.component';
+
 
 
 @NgModule({
   declarations: [
     DoctorsComponent,
-    AddDocComponent,
-    EditDocComponent,
-    ListDocComponent
+    AddDoctorComponent,
+    EditDoctorComponent,
+    ListDoctorComponent,
   ],
   imports: [
     CommonModule,
-    DoctorsRoutingModule
+    DoctorsRoutingModule,
+
+    //
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    RouterModule
   ]
 })
 export class DoctorsModule { }
