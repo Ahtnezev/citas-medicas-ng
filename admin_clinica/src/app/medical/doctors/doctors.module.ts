@@ -9,6 +9,7 @@ import { DoctorsComponent } from './doctors.component';
 import { AddDoctorComponent } from './add-doctor/add-doctor.component';
 import { EditDoctorComponent } from './edit-doctor/edit-doctor.component';
 import { ListDoctorComponent } from './list-doctor/list-doctor.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 
@@ -22,6 +23,7 @@ import { ListDoctorComponent } from './list-doctor/list-doctor.component';
   imports: [
     CommonModule,
     DoctorsRoutingModule,
+    SharedModule,
 
     //
     FormsModule,

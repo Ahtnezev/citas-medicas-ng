@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->time("hour_start");
             $table->time("hour_end");
-            $table->time("hour");
+            $table->string("hour");
             $table->timestamps();
             $table->softDeletes();
         });

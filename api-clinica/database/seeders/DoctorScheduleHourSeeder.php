@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\DoctorScheduleHour;
+use App\Models\Doctor\DoctorScheduleHour;
 use Illuminate\Database\Seeder;
 
 class DoctorScheduleHourSeeder extends Seeder
