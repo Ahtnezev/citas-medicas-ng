@@ -8,6 +8,7 @@ use App\Http\Resources\User\UserResource;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Models\Role;
 
@@ -20,9 +21,14 @@ class StaffController extends Controller
     {
         $search = trim($request->search);
 
-        $users = User::where("name", "LIKE", "%$search%")
-            ->orWhere("surname", "LIKE", "%$search%")
-            ->orWhere("email", "LIKE", "%$search%")
+        $users = User::
+            where( DB::raw("CONCAT(users.name,' ',IFNULL(users.surname, ''),' ',users.email)"), "LIKE", "%$search%" )
+            // where("name", "LIKE", "%$search%")
+            // ->orWhere("surname", "LIKE", "%$search%")
+            // ->orWhere("email", "LIKE", "%$search%")
+            ->whereHas("roles", function($q) {
+                $q->where("name", "NOT LIKE", "%doctor%");
+            })
             ->orderBy("id", "DESC")
             ->get();
 
@@ -36,7 +42,7 @@ class StaffController extends Controller
     */
     public function config()
     {
-        $roles = Role::all();
+        $roles = Role::where("name", "NOT LIKE", "%doctor%")->get();
 
         return response()->json([
             "roles" => $roles
