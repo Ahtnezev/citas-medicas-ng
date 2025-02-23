@@ -74,7 +74,7 @@ public selectedValue !: string  ;
     });
 
     this.doctorsService.listConfig().subscribe((resp:any) => {
-      console.log("#1 ->", resp);
+      // console.log("##", resp);
       this.roles = resp.roles;
       this.specialities = resp.specialities;
       this.hours_days = resp.hours_days;
@@ -82,21 +82,22 @@ public selectedValue !: string  ;
       // when we have a list config, we need to run first that, and then..
       // @show doctorController
       this.doctorsService.showDoctor(this.doctor_id).subscribe( (resp:any) => {
-        // console.log("xd", resp);
-        // this.doctor_selected = resp.doctor;
+        // console.log("##-#", resp);
+        this.doctor_selected = resp.doctor;
 
-        // this.selectedValue = this.doctor_selected.role.id;
-        // this.specialitie_id = this.doctor_selected.specialitie.id;
-        // this.name = this.doctor_selected.name;
-        // this.surname = this.doctor_selected.surname;
-        // this.mobile = this.doctor_selected.mobile;
-        // this.email = this.doctor_selected.email;
-        // this.birth_date = new Date(this.doctor_selected.birthdate).toISOString();
-        // this.gender = this.doctor_selected.gender;
-        // this.education = this.doctor_selected.education;
-        // this.designation = this.doctor_selected.designation;
-        // this.address = this.doctor_selected.address;
-        // this.IMAGEN_PREVIZUALIZA = this.doctor_selected.avatar;
+        this.selectedValue = this.doctor_selected.role.id;
+        this.specialitie_id = this.doctor_selected.especilidad.id;
+        this.name = this.doctor_selected.name;
+        this.surname = this.doctor_selected.surname;
+        this.mobile = this.doctor_selected.mobile;
+        this.email = this.doctor_selected.email;
+        this.birth_date = new Date(this.doctor_selected.birthdate).toISOString();
+        this.gender = this.doctor_selected.gender;
+        this.education = this.doctor_selected.education;
+        this.designation = this.doctor_selected.designation;
+        this.address = this.doctor_selected.address;
+        this.IMAGEN_PREVIZUALIZA = this.doctor_selected.avatar;
+        this.hours_selecteds = this.doctor_selected.schedule_selecteds;
 
       });
 
@@ -147,30 +148,13 @@ public selectedValue !: string  ;
     })
 
     formData.append("schedule_hours",JSON.stringify(HOUR_SCHEDULES));
-    this.doctorsService.registerDoctor(formData).subscribe((resp:any) => {
-      // console.log(resp);
+    this.doctorsService.updateDoctor(this.doctor_id, formData).subscribe((resp:any) => {
+      console.log("^^", resp);
 
       if(resp.message == 403){
-        this.text_validation = resp.message_text; // text
+        this.text_validation = resp.text; // message_text
       }else{
-        this.text_success = 'El usuario ha sido registrado correctamente';
-
-        this.name = '';
-        this.surname = '';
-        this.email  = '';
-        this.mobile  = '';
-        this.birth_date  = '';
-        this.gender  = 1;
-        this.education  = '';
-        this.designation  = '';
-        this.address  = '';
-        this.password  = '';
-        this.password_confirmation  = '';
-        this.selectedValue  = '';
-        this.specialitie_id  = '';
-        this.FILE_AVATAR = null;
-        this.IMAGEN_PREVIZUALIZA = null;
-        this.hours_selecteds = [];
+        this.text_success = 'El usuario ha sido editado correctamente';
       }
 
     })

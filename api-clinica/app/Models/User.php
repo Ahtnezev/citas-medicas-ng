@@ -80,8 +80,8 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
-    public function speciality() {
-        return $this->belongsTo(Specialitie::class);
+    public function especilidad() {
+        return $this->belongsTo(Specialitie::class, 'speciality_id');
     }
 
     public function shedule_days() {

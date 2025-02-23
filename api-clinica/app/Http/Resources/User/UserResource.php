@@ -66,13 +66,14 @@ class UserResource extends JsonResource
             "designation" => $this->resource->designation,
             "address" => $this->resource->address,
             "role" => $this->resource->roles->first(),
-            "speciality" => $this->resourcer->speciality ? [ // relationship
-               "id" => $this->resource->speciality->id,
-               "name" => $this->resource->speciality->name,
+            "especilidad_id" => $this->resource->speciality_id,
+            "especilidad" => $this->resource->especilidad ? [ // relationship
+               "id" => $this->resource->especilidad->id,
+               "name" => $this->resource->especilidad->name,
             ] : NULL,
             "created_at" => $this->resource->created_at ? $this->resource->created_at->format("Y/m/d") : NULL,
             "avatar" => env("APP_URL") . "storage/" . $this->resource->avatar, // absolute path
-            "schedule_selected" => $HOUR_SCHEDULES,
+            "schedule_selecteds" => $HOUR_SCHEDULES,
         ];
     }
 }
