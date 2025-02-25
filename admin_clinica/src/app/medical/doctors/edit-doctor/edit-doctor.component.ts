@@ -85,8 +85,8 @@ export class EditDoctorComponent {
         // console.log("##-#", resp);
         this.doctor_selected = resp.doctor;
 
-        this.selectedValue = this.doctor_selected.role.id;
-        this.specialitie_id = this.doctor_selected.especilidad.id;
+        this.selectedValue = this.doctor_selected?.role?.id;
+        this.specialitie_id = this.doctor_selected?.especilidad?.id;
         this.name = this.doctor_selected.name;
         this.surname = this.doctor_selected.surname;
         this.mobile = this.doctor_selected.mobile;

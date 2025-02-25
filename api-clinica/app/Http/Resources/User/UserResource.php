@@ -65,7 +65,7 @@ class UserResource extends JsonResource
             "education" => $this->resource->education,
             "designation" => $this->resource->designation,
             "address" => $this->resource->address,
-            "role" => $this->resource->roles->first(),
+            "role" => $this->resource->roles->first() ?? NULL,
             "especilidad_id" => $this->resource->speciality_id,
             "especilidad" => $this->resource->especilidad ? [ // relationship
                "id" => $this->resource->especilidad->id,

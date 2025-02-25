@@ -172,7 +172,9 @@ class DoctorsController extends Controller
         $request->request->add(["birthdate" => Carbon::parse(trim($request->birthdate))->format("Y-m-d") ]);
         $user->update($request->all());
 
-        if ($request->role_id != $user->roles()->first()->id) {
+        $hasRoles = $user?->roles()?->first()?->id ? true : false;
+
+        if ($hasRoles && $request->role_id != $user->roles()->first()->id) {
             $role_old = Role::findOrFail($user->roles()->first()->id); // el role que tiene asignado
             $user->removeRole($role_old);
 
@@ -181,8 +183,10 @@ class DoctorsController extends Controller
         }
 
         //~ limpiamos los permisos en CASCADE para posterior almacenar los nuevos dias/...
-        foreach ($user->schedule_days as $key => $schedule_day) {
-            $schedule_day->delete();
+        if (!is_null($user->schedule_days)) {
+            foreach ($user->schedule_days as $key => $schedule_day) {
+                $schedule_day->delete();
+            }
         }
 
         foreach($schedule_hours as $key => $schedule_hour) {
