@@ -79,7 +79,7 @@
                                                   <a class="dropdown-item" [href]="'doctors/list/edit/'+ data.id"><i class="fa-solid fa-pen-to-square m-r-5"></i> Edit</a>
                                                   <a
                                                     class="dropdown-item"
-                                                    (click)="selectDoctor(data)"
+                                                    (click)="selectUser(data)"
                                                     href="javascript:void(0);"
                                                     data-bs-toggle="modal"
                                                     [attr.data-bs-target]="'#delete_staff-'+data.id">
@@ -95,7 +95,7 @@
                                             <div class="modal-content">
                                                 <div class="modal-body text-center">
                                                     <img src="assets/img/sent.png" alt="" width="50" height="46">
-                                                    <h3 *ngIf="doctor_selected">Are you sure want to delete this user: <br/> {{ doctor_selected?.email }} ?</h3>
+                                                    <h3 *ngIf="doctor_selected">Are you sure want to delete this doctor: <br/> {{ doctor_selected?.email }} ?</h3>
                                                     <div class="m-t-20">
                                                         <a
                                                           href="javascript:void(0);"
@@ -103,7 +103,7 @@
                                                           data-bs-dismiss="modal">
                                                           Close
                                                         </a>
-                                                        <button type="submit" class="btn btn-danger" (click)="deleteDoctor()">Delete</button>
+                                                        <button type="submit" class="btn btn-danger" (click)="deleteUser()">Delete</button>
                                                     </div>
                                                 </div>
                                             </div>

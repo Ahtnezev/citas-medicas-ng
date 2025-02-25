@@ -143,7 +143,69 @@ class DoctorsController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $schedule_hours = json_decode($request->schedule_hours, 1);
+
+        $valid_user = User::where("id", "<>", $id)
+                            ->where("email", trim($request->email))
+                            ->first();
+        if ($valid_user) {
+            return response()->json([
+                "message" => 403,
+                "text" => "El usuario con ese email ya existe."
+            ]);
+        }
+
+        $user = User::findOrFail($id);
+
+        if ($request->hasFile('imagen')) {
+            if ($user->avatar) {
+                Storage::delete($user->avatar);
+            }
+            $path = Storage::putFile("staffs", $request->file("imagen"));
+            $request->request->add(["avatar" => $path]);
+        }
+
+        if ($request->password) {
+            $request->request->add(["password" => bcrypt($request->password)]);
+        }
+
+        $request->request->add(["birthdate" => Carbon::parse(trim($request->birthdate))->format("Y-m-d") ]);
+        $user->update($request->all());
+
+        if ($request->role_id != $user->roles()->first()->id) {
+            $role_old = Role::findOrFail($user->roles()->first()->id); // el role que tiene asignado
+            $user->removeRole($role_old);
+
+            $role_new = Role::findOrFail($request->role_id);
+            $user->assignRole($role_new);
+        }
+
+        //~ limpiamos los permisos en CASCADE para posterior almacenar los nuevos dias/...
+        foreach ($user->schedule_days as $key => $schedule_day) {
+            $schedule_day->delete();
+        }
+
+        foreach($schedule_hours as $key => $schedule_hour) {
+            if (sizeof($schedule_hour["children"]) > 0) {
+
+                $schedule_day = DoctorScheduleDay::create([
+                    "user_id" => $user->id,
+                    "day"     => $schedule_hour["day_name"]
+                ]);
+                foreach($schedule_hour["children"] as $children) {
+                    DoctorScheduleJoinHour::create([
+                        "doctor_schedule_day_id"         => $schedule_day->id,
+                        "doctor_schedule_hour_id"       => $children["item"]["id"],
+                    ]);
+                }
+
+            }
+        }
+
+
+        return response()->json([
+            "message" => 200
+        ]);
     }
 
     /**
@@ -151,6 +213,11 @@ class DoctorsController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->delete();
+
+        return response()->json([
+            "message" => 200
+        ]);
     }
 }

@@ -76,11 +76,11 @@ export class ListDoctorComponent {
       this.calculateTotalPages(this.totalData, this.pageSize);
     }
 
-    selectDoctor(rol: any) {
+    selectUser(rol: any) {
       this.doctor_selected = rol;
     }
 
-    deleteDoctor() {
+    deleteUser() {
 
       this.doctorService.deleteDoctor(this.doctor_selected.id).subscribe((res: any) => {
 
